@@ -1,0 +1,2 @@
+# FluentAvaloniaNavViewTooltipIssue
+NavigationView Control tooltip binding issue with FluentAvalonia
