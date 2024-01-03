@@ -1,0 +1,53 @@
+<UserControl x:Class="FluentAvaloniaNavViewIssue.Views.MainView"
+			 xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="clr-namespace:FluentAvaloniaNavViewIssue.ViewModels"
+			 xmlns:ui="using:FluentAvalonia.UI.Controls"
+			 xmlns:uip="using:FluentAvalonia.UI.Controls.Primitives"
+			 d:DesignWidth="800"
+			 d:DesignHeight="450"
+             x:DataType="vm:MainViewModel"
+			 mc:Ignorable="d">
+  <Design.DataContext>
+    <!-- This only sets the DataContext for the previewer in an IDE,
+         to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+    <vm:MainViewModel />
+  </Design.DataContext>
+
+	<StackPanel Margin="0,0,10,0">
+		<ui:NavigationView
+            x:Name="mainNv"
+            Height="700"
+            VerticalAlignment="Stretch"
+            Content=""
+            MenuItemsSource="{Binding Categories}"
+            PaneDisplayMode="Left"
+            SelectedItem="{Binding SelectedCategory}">
+
+			<ui:NavigationView.MenuItemTemplateSelector>
+				<vm:MenuItemTemplateSelector>
+					<DataTemplate DataType="{x:Type vm:Category}">
+						<ui:NavigationViewItem
+                            Content="{Binding Name}"
+                            IconSource="{Binding Icon}"
+                            ToolTip.Tip="{Binding ToolTip}">
+							<ui:NavigationViewItem.MenuItemsSource>
+								<Binding Path="Children" />
+							</ui:NavigationViewItem.MenuItemsSource>
+						</ui:NavigationViewItem>
+					</DataTemplate>
+
+					<vm:MenuItemTemplateSelector.SeparatorTemplate>
+						<DataTemplate DataType="{x:Type vm:Separator}">
+							<ui:NavigationViewItemSeparator />
+						</DataTemplate>
+					</vm:MenuItemTemplateSelector.SeparatorTemplate>
+				</vm:MenuItemTemplateSelector>
+			</ui:NavigationView.MenuItemTemplateSelector>
+
+
+		</ui:NavigationView>
+	</StackPanel>
+</UserControl>
